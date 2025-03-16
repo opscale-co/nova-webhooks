@@ -1,6 +1,6 @@
 {
-    "name": ":vendor/:package_name",
-    "description": ":package_description",
+    "name": "opscale-co/nova-webhooks",
+    "description": "Add webhooks support triggered by your resources CRUD operations.",
     "keywords": [
         "laravel",
         "nova",
@@ -14,12 +14,12 @@
             "url": "https://nova.laravel.com"
         }
     ],
-    "homepage": "https://github.com/:vendor/:package_name",
+    "homepage": "https://github.com/opscale-co/nova-webhooks",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Opscale",
+            "email": "development@opscale.co",
             "role": "Developer"
         }
     ],
@@ -29,18 +29,18 @@
     },
     "autoload": {
         "psr-4": {
-            ":namespace_vendor\\:namespace_tool_name\\": "src/"
+            "Opscale\\NovaWebhooks\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            ":namespace_vendor\\:namespace_tool_name\\Tests\\": "tests"
+            "Opscale\\NovaWebhooks\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                ":namespace_vendor\\:namespace_tool_name\\ToolServiceProvider"
+                "Opscale\\NovaWebhooks\\ToolServiceProvider"
             ]
         }
     },
@@ -50,6 +50,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
+        "laravel/nova": "^5.4",
         "laravel/nova-devtool": "^1.0",
         "phpunit/phpunit": "^10.5",
         "tightenco/duster": "^2.7"
