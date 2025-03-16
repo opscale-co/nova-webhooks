@@ -1,12 +1,15 @@
 {
     "name": "opscale-co/nova-webhooks",
-    "description": "Add webhooks support triggered by your resources CRUD operations.",
+    "description": "Add webhooks support triggered by your resource CRUD operations.",
+    "version": "1.0.0",
     "keywords": [
         "laravel",
         "nova",
         "package",
         "tool",
-        "opscale"
+        "opscale",
+        "webhook",
+        "crud"
     ],
     "repositories": [
         {
@@ -25,12 +28,16 @@
     ],
     "require": {
         "php": ">=8.2",
-        "ext-readline": "*"
+        "ext-readline": "*",
+        "spatie/laravel-webhook-server": "^3.8"
     },
     "autoload": {
         "psr-4": {
             "Opscale\\NovaWebhooks\\": "src/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

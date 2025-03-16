@@ -18,9 +18,12 @@ Thanks for helping Opscale continue to scale! 🚀
 
 ## Description
 
-Add webhooks support triggered by your resources CRUD operations.
+Add webhooks support triggered by your resource CRUD operations.
 
-Add a screenshot of the tool here.
+Integrations are everywhere, even managing your operations in your Nova app you will need to communicate with external systems for triggering actions or keep records up to date. Webhooks are the best solution for that!
+
+![Webhook creation](https://raw.githubusercontent.com/opscale-co/nova-webhooks/refs/heads/main/screenshots/webhook-creation.png)
+![Wwebhook demo](https://raw.githubusercontent.com/opscale-co/nova-webhooks/refs/heads/main/screenshots/webhook-demo.png)
 
 ## Installation
 
@@ -50,9 +53,13 @@ public function tools()
 
 ```
 
+This package uses [Laravel Webhook Server](https://github.com/spatie/laravel-webhook-server) internally to fire the webhook event, any further configuration can be done publishing the configuration file using:
+
+`php artisan vendor:publish --provider="Spatie\WebhookServer\WebhookServerServiceProvider"`
+
 ## Usage
 
-Click on the "nova-webhooks" menu item in your Nova app to see the tool provided by this package.
+You will see a "Webhooks" item in your menu by default. You can your webhooks here and they will be triggered after the CRUD operation is completed. Remember to have your queues working.
 
 ## Testing
 
@@ -77,6 +84,7 @@ If you discover any security related issues, please email development@opscale.co
 ## Credits
 
 - [Opscale](https://github.com/opscale-co)
+- [Spatie](https://github.com/spatie/laravel-webhook-server)
 
 ## License
 

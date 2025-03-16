@@ -30,7 +30,9 @@ class ToolServiceProvider extends ServiceProvider
 
     protected function loadResources()
     {
-        Nova::resources([]);
+        Nova::resources([
+            \Opscale\NovaWebhooks\Nova\Webhook::class,
+        ]);
     }
 
     protected function loadRoutes()
