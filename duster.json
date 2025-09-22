@@ -1,0 +1,10 @@
+{
+    "include": [
+        "src",
+        "tests"
+    ],
+    "exclude": [
+        "tests/fixtures"
+    ],
+    "processTimeout": 120
+}

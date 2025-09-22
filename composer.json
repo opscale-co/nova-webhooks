@@ -1,70 +1,79 @@
 {
-    "name": "opscale-co/nova-webhooks",
-    "description": "Add webhooks support triggered by your resource CRUD operations.",
-    "version": "1.0.0",
-    "keywords": [
-        "laravel",
-        "nova",
-        "package",
-        "tool",
-        "opscale",
-        "webhook",
-        "crud"
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
-        }
-    ],
-    "homepage": "https://github.com/opscale-co/nova-webhooks",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Opscale",
-            "email": "development@opscale.co",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "php": ">=8.2",
-        "ext-readline": "*",
-        "spatie/laravel-webhook-server": "^3.8"
-    },
-    "autoload": {
-        "psr-4": {
-            "Opscale\\NovaWebhooks\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Opscale\\NovaWebhooks\\Tests\\": "tests"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Opscale\\NovaWebhooks\\ToolServiceProvider"
-            ]
-        }
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "require-dev": {
-        "laravel/nova": "^5.4",
-        "laravel/nova-devtool": "^1.0",
-        "phpunit/phpunit": "^10.5",
-        "tightenco/duster": "^2.7"
-    },
-    "script" : {
-        "post-autoload-dump": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-        ]
+  "name": "opscale-co/nova-webhooks",
+  "description": "Add webhooks support triggered by your resource CRUD operations.",
+  "version": "1.0.0",
+  "keywords": [
+    "laravel",
+    "nova",
+    "package",
+    "tool",
+    "opscale",
+    "webhook",
+    "crud"
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://nova.laravel.com"
     }
+  ],
+  "homepage": "https://github.com/opscale-co/nova-webhooks",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Opscale",
+      "email": "development@opscale.co",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=8.2",
+    "ext-readline": "*",
+    "spatie/laravel-package-tools": "^1.92",
+    "spatie/laravel-webhook-server": "^3.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "Opscale\\NovaWebhooks\\": "src/"
+    },
+    "files": [
+      "src/helpers.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Opscale\\NovaWebhooks\\Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Opscale\\NovaWebhooks\\ToolServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "driftingly/rector-laravel": "^2.0",
+    "larastan/larastan": "^3.7",
+    "laravel/nova": "^5.4",
+    "laravel/nova-devtool": "^1.0",
+    "opscale-co/strict-rules": "^1.1",
+    "phpunit/phpunit": "^10.5",
+    "rector/rector": "^2.1",
+    "tightenco/duster": "^2.7"
+  },
+  "script": {
+    "post-autoload-dump": [
+      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+    ]
+  },
+  "scripts": {
+    "refactor": "rector",
+    "test": "phpunit"
+  }
 }
