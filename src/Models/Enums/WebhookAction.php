@@ -1,6 +1,6 @@
 <?php
 
-namespace Opscale\NovaWebhooks\Enums;
+namespace Opscale\NovaWebhooks\Models\Enums;
 
 enum WebhookAction: string
 {

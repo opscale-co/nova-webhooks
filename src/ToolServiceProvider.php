@@ -2,56 +2,49 @@
 
 namespace Opscale\NovaWebhooks;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova;
-use Opscale\NovaWebhooks\Http\Middleware\Authorize;
+use Illuminate\Support\Facades\Event;
+use Opscale\NovaPackageTools\NovaPackage;
+use Opscale\NovaPackageTools\NovaPackageServiceProvider;
+use Opscale\NovaWebhooks\Events\WebhookTriggered;
+use Opscale\NovaWebhooks\Nova\Webhook;
+use Opscale\NovaWebhooks\Services\Actions\FireWebhook;
+use Override;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Package;
 
-class ToolServiceProvider extends ServiceProvider
+class ToolServiceProvider extends NovaPackageServiceProvider
 {
-    public function boot()
+    /**
+     * @phpstan-ignore solid.ocp.conditionalOverride
+     */
+    public function configurePackage(Package $package): void
     {
-        $this->loadRoutes();
-
-        if ($this->app->runningInConsole()) {
-            $this->loadMigrations();
-        }
-
-        Nova::serving(function (ServingNova $event) {
-            $this->loadResources();
-        });
+        /** @var NovaPackage $package */
+        $package
+            ->name('nova-webhooks')
+            ->discoversMigrations()
+            ->runsMigrations()
+            /** @phpstan-ignore argument.type */
+            ->hasResources([
+                Webhook::class,
+            ])
+            ->hasInstallCommand(function (InstallCommand $installCommand): void {
+                $installCommand
+                    ->askToStarRepoOnGitHub('opscale-co/nova-webhooks');
+            });
     }
 
-    public function register()
+    /**
+     * Register the event listeners.
+     */
+    #[Override]
+    final public function packageBooted(): void
     {
-        //
-    }
+        parent::packageBooted();
 
-    protected function loadResources()
-    {
-        Nova::resources([
-            \Opscale\NovaWebhooks\Nova\Webhook::class,
-        ]);
-    }
-
-    protected function loadRoutes()
-    {
-        if ($this->app->routesAreCached()) {
-            return;
-        }
-
-        Route::middleware(['nova', Authorize::class])
-            ->prefix('nova-vendor/opscale-co/nova-webhooks')
-            ->group(__DIR__ . '/../routes/api.php');
-    }
-
-    protected function loadMigrations()
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-
-        $this->publishesMigrations([
-            __DIR__ . '/../database/migrations' => database_path('migrations'),
-        ]);
+        Event::listen(
+            WebhookTriggered::class,
+            FireWebhook::class
+        );
     }
 }

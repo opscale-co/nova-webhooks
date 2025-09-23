@@ -7,16 +7,21 @@ use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool as NovaTool;
 use Opscale\NovaWebhooks\Nova\Webhook;
+use Override;
 
 class Tool extends NovaTool
 {
-    public function boot()
+    #[Override]
+    final public function boot(): void
     {
+        parent::boot();
+
         Nova::script('nova-webhooks', __DIR__ . '/../dist/js/tool.js');
         Nova::style('nova-webhooks', __DIR__ . '/../dist/css/tool.css');
     }
 
-    public function menu(Request $request)
+    #[Override]
+    final public function menu(Request $request): MenuItem
     {
         return MenuItem::resource(Webhook::class);
     }

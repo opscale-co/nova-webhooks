@@ -2,20 +2,32 @@
 
 namespace Opscale\NovaWebhooks\Http\Middleware;
 
+use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Collection;
 use Laravel\Nova\Nova;
+use Laravel\Nova\Tool as NovaTool;
 use Opscale\NovaWebhooks\Tool;
 
 class Authorize
 {
-    public function handle(Request $request, $next)
+    final public function handle(Request $request, Closure $next): Response
     {
-        $tool = collect(Nova::registeredTools())->first([$this, 'matchesTool']);
+        /** @var Collection<int, NovaTool> $tools */
+        $tools = Collection::make(Nova::registeredTools());
 
-        return optional($tool)->authorize($request) ? $next($request) : abort(403);
+        /** @var Tool|null $tool */
+        $tool = $tools->first([$this, 'matchesTool']);
+
+        if ($tool !== null && $tool->authorize($request)) {
+            return $next($request);
+        }
+
+        abort(403);
     }
 
-    public function matchesTool($tool)
+    final public function matchesTool(object $tool): bool
     {
         return $tool instanceof Tool;
     }

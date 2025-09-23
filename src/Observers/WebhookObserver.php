@@ -2,49 +2,24 @@
 
 namespace Opscale\NovaWebhooks\Observers;
 
-use Exception;
 use Illuminate\Database\Eloquent\Model;
-use Opscale\NovaWebhooks\Enums\WebhookAction;
-use Opscale\NovaWebhooks\Models\Webhook;
-use Spatie\WebhookServer\WebhookCall;
+use Opscale\NovaWebhooks\Events\WebhookTriggered;
+use Opscale\NovaWebhooks\Models\Enums\WebhookAction;
 
 class WebhookObserver
 {
-    public function created(Model $model)
+    final public function created(Model $model): void
     {
-        $this->fireWebhook($model, WebhookAction::CREATE->value);
+        WebhookTriggered::dispatch($model, WebhookAction::CREATE->value);
     }
 
-    public function updated(Model $model)
+    final public function updated(Model $model): void
     {
-        $this->fireWebhook($model, WebhookAction::UPDATE->value);
+        WebhookTriggered::dispatch($model, WebhookAction::UPDATE->value);
     }
 
-    public function deleted(Model $model)
+    final public function deleted(Model $model): void
     {
-        $this->fireWebhook($model, WebhookAction::DELETE->value);
-    }
-
-    private function fireWebhook($model, $action)
-    {
-        try {
-            $resource = class_basename(get_class($model));
-
-            $webhook = Webhook::where('resource', $resource)
-                ->where('action', $action)
-                ->first();
-
-            if ($webhook != null) {
-                WebhookCall::create()
-                    ->url($webhook->url)
-                    ->useHttpVerb('POST')
-                    ->withHeaders($webhook->headers)
-                    ->payload($model->toArray())
-                    ->doNotSign()
-                    ->dispatch();
-            }
-        } catch (Exception $e) {
-
-        }
+        WebhookTriggered::dispatch($model, WebhookAction::DELETE->value);
     }
 }

@@ -28,21 +28,22 @@
   ],
   "require": {
     "php": ">=8.2",
-    "ext-readline": "*",
-    "spatie/laravel-package-tools": "^1.92",
-    "spatie/laravel-webhook-server": "^3.8"
+    "lorisleiva/laravel-actions": "^2.9",
+    "opscale-co/nova-package-tools": "^1.0",
+    "spatie/laravel-webhook-server": "^3.8",
+    "theriddleofenigma/laravel-model-validation": "^1.6"
   },
   "autoload": {
     "psr-4": {
       "Opscale\\NovaWebhooks\\": "src/"
-    },
-    "files": [
-      "src/helpers.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
-      "Opscale\\NovaWebhooks\\Tests\\": "tests"
+      "Opscale\\NovaWebhooks\\Tests\\": "tests",
+      "Workbench\\App\\": "workbench/app/",
+      "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+      "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
     }
   },
   "extra": {
@@ -55,25 +56,30 @@
   "config": {
     "sort-packages": true
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true,
   "require-dev": {
     "driftingly/rector-laravel": "^2.0",
     "larastan/larastan": "^3.7",
-    "laravel/nova": "^5.4",
+    "laravel/nova": "^5.6",
     "laravel/nova-devtool": "^1.0",
     "opscale-co/strict-rules": "^1.1",
     "phpunit/phpunit": "^10.5",
     "rector/rector": "^2.1",
     "tightenco/duster": "^2.7"
   },
-  "script": {
-    "post-autoload-dump": [
-      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-    ]
-  },
   "scripts": {
-    "refactor": "rector",
-    "test": "phpunit"
+    "post-autoload-dump": [
+      "@clear",
+      "@prepare"
+    ],
+    "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+    "prepare": "@php vendor/bin/testbench package:discover --ansi",
+    "build": "@php vendor/bin/testbench workbench:build --ansi",
+    "serve": [
+      "Composer\\Config::disableProcessTimeout",
+      "@build",
+      "@php vendor/bin/testbench serve --ansi"
+    ]
   }
 }
