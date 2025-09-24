@@ -119,7 +119,7 @@ class Webhook extends Resource
                     class_uses_recursive($resource::$model));
             })
             ->mapWithKeys(function ($resource): array {
-                return [$resource::$model::class => $resource::singularLabel()];
+                return [$resource::$model => $resource::singularLabel()];
             })
             ->toArray();
 

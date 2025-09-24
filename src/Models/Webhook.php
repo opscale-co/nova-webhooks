@@ -17,6 +17,17 @@ class Webhook extends Model
     public $casts = [
         'headers' => 'array',
         'action' => WebhookAction::class,
+        'enabled' => 'boolean',
+    ];
+
+    protected $fillable = [
+        'name',
+        'description',
+        'url',
+        'headers',
+        'resource',
+        'action',
+        'enabled',
     ];
 
     /**

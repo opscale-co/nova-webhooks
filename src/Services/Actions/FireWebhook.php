@@ -18,7 +18,7 @@ final class FireWebhook
      *
      * @param  class-string<Model>  $resource
      */
-    final public function handle(string $resource, string $action, Model $model): void
+    final public function fireWebhook(string $resource, string $action, Model $model): void
     {
         /** @var \Illuminate\Database\Eloquent\Collection<int, Webhook> $webhooks */
         $webhooks = Webhook::query()
@@ -31,30 +31,47 @@ final class FireWebhook
             /** @var string $url */
             $url = $webhook->getAttribute('url');
 
-            /** @var array<string, string> $headers */
-            $headers = $webhook->getAttribute('headers') ?? [];
+            /** @var array<string, string>|null $headersData */
+            $headersData = $webhook->getAttribute('headers');
+            $headers = is_array($headersData) ? $headersData : [];
 
-            WebhookCall::create()
+            $webhookCall = WebhookCall::create()
                 ->url($url)
                 ->useHttpVerb('POST')
-                ->withHeaders($headers)
                 ->payload([
                     'resource' => $resource,
                     'event' => $action,
                     'data' => $model->toArray(),
                     'timestamp' => Carbon::now()->toIso8601String(),
                 ])
-                ->doNotSign()
-                ->dispatch();
+                ->doNotSign();
+
+            if ($headers !== []) {
+                $webhookCall->withHeaders($headers);
+            }
+
+            $webhookCall->dispatch();
         }
     }
 
     /**
-     * Handle the action as an event listener.
+     * Handle the action as an event listener (Laravel's default event method).
+     */
+    final public function handle(WebhookTriggered $webhookTriggered): void
+    {
+        $this->fireWebhook(
+            $webhookTriggered->model::class,
+            $webhookTriggered->action,
+            $webhookTriggered->model
+        );
+    }
+
+    /**
+     * Handle the action as an event listener (explicit method).
      */
     final public function asListener(WebhookTriggered $webhookTriggered): void
     {
-        $this->handle(
+        $this->fireWebhook(
             $webhookTriggered->model::class,
             $webhookTriggered->action,
             $webhookTriggered->model

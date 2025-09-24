@@ -46,6 +46,11 @@ function phpSetup(): array
 
             // Specific rules
             Rector\CodeQuality\Rector\If_\SimplifyIfReturnBoolRector::class,
+
+            // Skip Eloquent magic method conversion in tests to keep clean base class names
+            RectorLaravel\Rector\StaticCall\EloquentMagicMethodToQueryBuilderRector::class => [
+                __DIR__ . '/tests',
+            ],
         ],
     ];
 }
