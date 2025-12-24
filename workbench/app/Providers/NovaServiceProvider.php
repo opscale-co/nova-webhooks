@@ -28,7 +28,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools(): array
     {
         return [
-            new Tool,
+            //new Tool,
         ];
     }
 

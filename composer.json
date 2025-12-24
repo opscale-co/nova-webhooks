@@ -28,7 +28,7 @@
   ],
   "require": {
     "php": ">=8.2",
-    "lorisleiva/laravel-actions": "^2.9",
+    "opscale-co/actions": "^1.0",
     "opscale-co/nova-package-tools": "^1.0",
     "spatie/laravel-webhook-server": "^3.8",
     "theriddleofenigma/laravel-model-validation": "^1.6"

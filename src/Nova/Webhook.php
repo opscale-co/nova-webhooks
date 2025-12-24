@@ -33,12 +33,12 @@ class Webhook extends Resource
 
     final public static function label(): string
     {
-        return _('Webhooks');
+        return __('Webhooks');
     }
 
     final public static function singularLabel(): string
     {
-        return _('Webhook');
+        return __('Webhook');
     }
 
     /**
@@ -48,7 +48,7 @@ class Webhook extends Resource
     final public function fields(NovaRequest $request): array
     {
         return [
-            Text::make(_('Name'), 'name')
+            Text::make(__('Name'), 'name')
                 ->rules(function (): array {
                     $rules = $this->model()?->validationRules()['name'] ?? [];
 
@@ -56,14 +56,14 @@ class Webhook extends Resource
                 })
                 ->sortable(),
 
-            Textarea::make(_('Description'), 'description')
+            Textarea::make(__('Description'), 'description')
                 ->rules(function (): array {
                     $rules = $this->model()?->validationRules()['description'] ?? [];
 
                     return is_array($rules) ? $rules : [];
                 }),
 
-            Text::make(_('URL'), 'url')
+            Text::make(__('URL'), 'url')
                 ->rules(function (): array {
                     $rules = $this->model()?->validationRules()['url'] ?? [];
 
@@ -71,12 +71,12 @@ class Webhook extends Resource
                 })
                 ->hideFromIndex(),
 
-            KeyValue::make(_('Headers'), 'headers')
-                ->keyLabel(_('Header'))
-                ->valueLabel(_('Value'))
-                ->actionText(_('Add header')),
+            KeyValue::make(__('Headers'), 'headers')
+                ->keyLabel(__('Header'))
+                ->valueLabel(__('Value'))
+                ->actionText(__('Add header')),
 
-            Select::make(_('Resource'), 'resource')
+            Select::make(__('Resource'), 'resource')
                 ->options($this->getWebhookableResources())
                 ->displayUsingLabels()
                 ->rules(function (): array {
@@ -86,9 +86,9 @@ class Webhook extends Resource
                 })
                 ->sortable()
                 ->filterable()
-                ->help(_('Only models using Webhookable trait are available.')),
+                ->help(__('Only models using Webhookable trait are available.')),
 
-            Select::make(_('Action'), 'action')
+            Select::make(__('Action'), 'action')
                 ->options($this->getWebhookActions())
                 ->displayUsingLabels()
                 ->rules(function (): array {
@@ -99,7 +99,7 @@ class Webhook extends Resource
                 ->sortable()
                 ->filterable(),
 
-            Boolean::make(_('Enabled'), 'enabled')
+            Boolean::make(__('Enabled'), 'enabled')
                 ->sortable()
                 ->filterable()
                 ->hideWhenCreating(),
@@ -134,7 +134,7 @@ class Webhook extends Resource
         /** @var array<string, string> */
         $actions = Collection::make(WebhookAction::cases())
             ->mapWithKeys(function (WebhookAction $webhookAction): array {
-                return [$webhookAction->value => _($webhookAction->value)];
+                return [$webhookAction->value => __($webhookAction->value)];
             })
             ->toArray();
 

@@ -1,0 +1,23 @@
+{
+    "Webhooks": "Webhooks",
+    "Webhook": "Webhook",
+    "Name": "Nombre",
+    "Description": "Descripcion",
+    "URL": "URL",
+    "Headers": "Encabezados",
+    "Header": "Encabezado",
+    "Value": "Valor",
+    "Add header": "Agregar encabezado",
+    "Resource": "Recurso",
+    "Action": "Accion",
+    "Enabled": "Habilitado",
+    "Only models using Webhookable trait are available.": "Solo estan disponibles los modelos que usan el trait Webhookable.",
+    "Create": "Crear",
+    "Update": "Actualizar",
+    "Delete": "Eliminar",
+    "Fire Webhook": "Disparar Webhook",
+    "Fires webhooks for a specific resource and action, sending the model data to all configured webhook endpoints.": "Dispara webhooks para un recurso y accion especificos, enviando los datos del modelo a todos los endpoints de webhook configurados.",
+    "The fully qualified class name of the resource model": "El nombre de clase completo del modelo de recurso",
+    "The action that triggered the webhook (created, updated, deleted)": "La accion que disparo el webhook (creado, actualizado, eliminado)",
+    "The Eloquent model instance to include in the webhook payload": "La instancia del modelo Eloquent para incluir en el payload del webhook"
+}

@@ -38,7 +38,7 @@ class Webhook extends Model
     {
         return [
             'name' => ['required'],
-            'description' => ['nullable', 'max:512'],
+            'description' => ['required', 'max:512'],
             'url' => ['required', 'url'],
             'headers' => ['nullable', 'json'],
             'resource' => ['required'],

@@ -24,6 +24,7 @@ class ToolServiceProvider extends NovaPackageServiceProvider
             ->name('nova-webhooks')
             ->discoversMigrations()
             ->runsMigrations()
+            ->hasTranslations()
             /** @phpstan-ignore argument.type */
             ->hasResources([
                 Webhook::class,
@@ -42,9 +43,6 @@ class ToolServiceProvider extends NovaPackageServiceProvider
     {
         parent::packageBooted();
 
-        Event::listen(
-            WebhookTriggered::class,
-            FireWebhook::class
-        );
+        Event::listen(WebhookTriggered::class, FireWebhook::class);
     }
 }

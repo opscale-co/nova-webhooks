@@ -63,8 +63,7 @@ class User extends Resource
 
             Password::make('Password')
                 ->onlyOnForms()
-                ->creationRules(fn (): array => $this->model()->validationRules['password'] ?? [])
-                ->updateRules(fn (): array => $this->model()->validationRules['password'] ?? []),
+                ->creationRules(fn (): array => $this->model()->validationRules['password'] ?? []),
         ];
     }
 

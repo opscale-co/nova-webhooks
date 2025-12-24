@@ -22,8 +22,7 @@ Add webhooks support triggered by your resource CRUD operations.
 
 Integrations are everywhere, even managing your operations in your Nova app you will need to communicate with external systems for triggering actions or keep records up to date. Webhooks are the best solution for that!
 
-![Webhook creation](https://raw.githubusercontent.com/opscale-co/nova-webhooks/refs/heads/main/screenshots/webhook-creation.png)
-![Wwebhook demo](https://raw.githubusercontent.com/opscale-co/nova-webhooks/refs/heads/main/screenshots/webhook-demo.png)
+![Demo](https://raw.githubusercontent.com/opscale-co/nova-webhooks/refs/heads/main/screenshots/nova-webhooks.gif)
 
 ## Installation
 
