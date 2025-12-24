@@ -2,6 +2,12 @@
 
 All notable changes to opscale-co/nova-api will be documented in this file.
 
+## [1.0.2](https://github.com/opscale-co/nova-webhooks/compare/v1.0.1...v1.0.2) (2025-12-24)
+
+### Performance Improvements
+
+* **project:** implemented Opscale actions ([0b454d9](https://github.com/opscale-co/nova-webhooks/commit/0b454d951131bc283cf35239dcaa49508511f946))
+
 ## [1.0.1](https://github.com/opscale-co/nova-webhooks/compare/v1.0.0...v1.0.1) (2025-09-24)
 
 ### Performance Improvements
