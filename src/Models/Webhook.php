@@ -33,7 +33,6 @@ class Webhook extends Model
     /**
      * @return array<string, mixed>
      */
-    #[Override]
     final public function validationRules(): array
     {
         return [
