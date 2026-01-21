@@ -15,9 +15,6 @@ class Tool extends NovaTool
     final public function boot(): void
     {
         parent::boot();
-
-        Nova::script('nova-webhooks', __DIR__ . '/../dist/js/tool.js');
-        Nova::style('nova-webhooks', __DIR__ . '/../dist/css/tool.css');
     }
 
     #[Override]
