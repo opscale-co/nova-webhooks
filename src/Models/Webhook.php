@@ -2,17 +2,16 @@
 
 namespace Opscale\NovaWebhooks\Models;
 
-use Enigma\ValidatorTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use Laravel\Nova\Actions\Actionable;
 use Opscale\NovaWebhooks\Models\Enums\WebhookAction;
-use Override;
+use Opscale\Validations\Validatable;
 
 class Webhook extends Model
 {
     use Actionable;
-    use ValidatorTrait;
+    use Validatable;
 
     public $casts = [
         'headers' => 'array',

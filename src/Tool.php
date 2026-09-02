@@ -4,7 +4,6 @@ namespace Opscale\NovaWebhooks;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Menu\MenuItem;
-use Laravel\Nova\Nova;
 use Laravel\Nova\Tool as NovaTool;
 use Opscale\NovaWebhooks\Nova\Webhook;
 use Override;

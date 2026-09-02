@@ -3,27 +3,28 @@
 namespace Workbench\App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Enigma\ValidatorTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Opscale\NovaWebhooks\Concerns\Webhookable;
+use Opscale\Validations\Validatable;
 use Workbench\Database\Factories\UserFactory;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  */
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, ValidatorTrait, Webhookable;
+    use HasFactory, Notifiable, Validatable, Webhookable;
 
     /**
      * @var array<string, list<string>>
@@ -68,7 +69,7 @@ class User extends Authenticatable
     /**
      * Create a new factory instance for the model.
      */
-    final protected static function newFactory(): \Workbench\Database\Factories\UserFactory
+    final protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
     }

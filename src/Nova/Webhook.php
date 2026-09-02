@@ -4,6 +4,7 @@ namespace Opscale\NovaWebhooks\Nova;
 
 use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\KeyValue;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
@@ -17,7 +18,7 @@ use Opscale\NovaWebhooks\Models\Webhook as Model;
 use Override;
 
 /**
- * @extends Resource<Model>
+ * @extends resource<Model>
  */
 class Webhook extends Resource
 {
@@ -42,7 +43,7 @@ class Webhook extends Resource
     }
 
     /**
-     * @return array<int, \Laravel\Nova\Fields\Field>
+     * @return array<int, Field>
      */
     #[Override]
     final public function fields(NovaRequest $request): array

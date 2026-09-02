@@ -2,6 +2,7 @@
 
 namespace Opscale\NovaWebhooks\Services\Actions;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Opscale\Actions\Action;
@@ -70,10 +71,28 @@ final class FireWebhook extends Action
     }
 
     /**
+     * Define the outputs schema for this action.
+     *
+     * @return array<int, array{name: string, description: string, type: string, rules: array<int, string>}>
+     */
+    #[Override]
+    final public function outputs(): array
+    {
+        return [
+            [
+                'name' => 'dispatched',
+                'description' => __('The number of webhook calls dispatched'),
+                'type' => 'integer',
+                'rules' => ['required', 'integer'],
+            ],
+        ];
+    }
+
+    /**
      * Execute the action with the given attributes.
      *
      * @param  array{resource: string, action: string, model: Model}  $attributes
-     * @return array{dispatched: int}
+     * @return array<string, mixed>
      */
     #[Override]
     final public function handle(array $attributes = []): array // @phpstan-ignore parameter.defaultValue
@@ -90,7 +109,7 @@ final class FireWebhook extends Action
         /** @var Model $model */
         $model = $this->get('model');
 
-        /** @var \Illuminate\Database\Eloquent\Collection<int, Webhook> $webhooks */
+        /** @var Collection<int, Webhook> $webhooks */
         $webhooks = Webhook::query()
             ->where('resource', $resource)
             ->where('action', $action)
@@ -126,7 +145,7 @@ final class FireWebhook extends Action
             $dispatched++;
         }
 
-        return ['dispatched' => $dispatched];
+        return $this->succeed(['dispatched' => $dispatched]);
     }
 
     /**

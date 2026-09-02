@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Helper function "__\(\)" usage detected in "Opscale\\NovaWebhooks\\Nova\\Webhook"\. Consider injecting the service directly instead of using helper functions\.$#'
+			identifier: smells.helpersRestriction.helper
+			count: 14
+			path: src/Nova/Webhook.php
+
+		-
+			message: '#^Helper function "__\(\)" usage detected in "Opscale\\NovaWebhooks\\Services\\Actions\\FireWebhook"\. Consider injecting the service directly instead of using helper functions\.$#'
+			identifier: smells.helpersRestriction.helper
+			count: 6
+			path: src/Services/Actions/FireWebhook.php
