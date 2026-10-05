@@ -2,6 +2,12 @@
 
 All notable changes to opscale-co/nova-api will be documented in this file.
 
+## [1.2.0](https://github.com/opscale-co/nova-webhooks/compare/v1.1.0...v1.2.0) (2026-10-05)
+
+### Features
+
+* adopt opscale-co/actions v4 ([c992ae9](https://github.com/opscale-co/nova-webhooks/commit/c992ae91d4d7adea5aff5fee2d7d77684e781184))
+
 ## [1.1.0](https://github.com/opscale-co/nova-webhooks/compare/v1.0.4...v1.1.0) (2026-09-02)
 
 ### Features
