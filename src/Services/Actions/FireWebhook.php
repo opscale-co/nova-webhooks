@@ -149,14 +149,24 @@ final class FireWebhook extends Action
     }
 
     /**
-     * Handle the action as an event listener.
+     * Map the dispatched WebhookTriggered event onto the action's declared
+     * parameters. The adapter already resolves `action` and `model` from the
+     * event's public properties; here we additionally derive `resource` from
+     * the changed model's class name.
+     *
+     * @param  array<int|string, mixed>  $arguments
+     * @return array<string, mixed>
      */
-    final public function asListener(WebhookTriggered $webhookTriggered): void
+    #[Override]
+    final protected function mapEventToInputs(array $arguments): array
     {
-        $this->handle([
-            'resource' => $webhookTriggered->model::class,
-            'action' => $webhookTriggered->action,
-            'model' => $webhookTriggered->model,
-        ]);
+        $inputs = parent::mapEventToInputs($arguments);
+
+        $event = $arguments[0] ?? null;
+        if ($event instanceof WebhookTriggered) {
+            $inputs['resource'] = $event->model::class;
+        }
+
+        return $inputs;
     }
 }
